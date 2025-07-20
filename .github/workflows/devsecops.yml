@@ -19,7 +19,7 @@ jobs:
       - name: 🐍 Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: "3.12"
+          python-version: 3.10
 
       - name: 🧱 Install dependencies
         run: |
@@ -29,10 +29,10 @@ jobs:
       - name: 🐳 Build Docker image
         run: docker build -t sentiment-api .
 
-      - name: 🔍 Scan with Trivy
+      - name: 🔍 Scan with Trivy (allow vulnerabilities)
         uses: aquasecurity/trivy-action@master
         with:
           image-ref: sentiment-api
           format: table
-          exit-code: 0
+          exit-code: 0           # ✅ Allow pipeline to pass even if vulns are found
           ignore-unfixed: true
